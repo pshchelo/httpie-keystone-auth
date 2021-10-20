@@ -7,7 +7,7 @@ from httpie.plugins import AuthPlugin
 import openstack
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 __author__ = "Pavlo Shchelokovskyy"
 __license__ = "MIT"
 

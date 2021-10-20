@@ -9,7 +9,7 @@ setup(
     name='httpie-keystone-auth',
     description='OpenStack Keystone auth plugin for HTTPie.',
     long_description=open('README.rst').read().strip(),
-    version='0.1.1',
+    version='0.2.0',
     author='Pavlo Shchelokovskyy',
     author_email='shchelokovskyy@gmail.com',
     license='MIT',
