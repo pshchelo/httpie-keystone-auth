@@ -27,7 +27,7 @@ setup(
         'openstacksdk>=0.59.0'
     ],
     classifiers=[
-        'Development Status :: 1 - Alpha',
+        'Development Status :: 3 - Alpha',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3 :: Only',
         'Environment :: Plugins',
