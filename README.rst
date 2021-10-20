@@ -62,16 +62,45 @@ to use as 'username' to HTTPie:
 
    https -A keystone -a myothercloud images.othercloud.com/v2/images
 
-Notes
-=====
+Using service type instead of full service URL
+----------------------------------------------
 
-For now tested only with standard ``password`` auth type of Keystone,
-but should work with any auth_type supported in the ``clouds.yaml`` file.
+This plugin can also simplify working with OpenStack APIs by allowing you
+to specify only the *service type* instead of full URL, e.g
+
+.. code-block:: bash
+
+   https -A keystone compute/servers
+
+Under the hood, the plugin will check if there's any service in the OpenStack
+service catalog of your cloud that has the service type as specified in the
+first part (netloc) of your URL, and replace this first path with endpoint
+URL for this service as defined in the catalog for the region and endpoint type
+(interface) as set in your ``clouds.yaml``.
+
+Note on API versions
+~~~~~~~~~~~~~~~~~~~~
+Services in the OpenStack catalog can be versioned and unversioned.
+In the case of an unversioned endpoint, you will have to provide the
+version in your URL explicitly, for example:
+
+- Image service has catalog entry as "https://glance.mycloud.com"
+  To list images using v2 images API, you will have to call
+  ``image/v2/images`` URL with HTTPie.
+- Compute service usually has catalog entry that is both versioned
+  and also contains the OpenStack project UUID the request is scoped to,
+  like "https://nova.mycloud.com/v2.1/1234567890absdef1234567890absdef".
+  In this case you should simply call HTTPie with e.g. ``compute/servers``
+  URL to list servers.
+
+Limitations
+===========
+If you are using cloud that needs custom CA bundle file to verify the TLS
+connection, you will still have to pass it explicitly to HTTPie
+even if it is already set in the ``clouds.yaml`` file.
 
 TODO
 ====
-- simplify usage by allowing URLs in the form of
-  ``<service-type-or-service-name>`` by getting them out from Keystone catalog
-  of the cloud being used
 - for password-like auth type, check that the password is provided in the
-  ``clouds.yaml`` and prompt for password if it is not
+  ``clouds.yaml`` and prompt for password if it is not provided as "password"
+  to HTTPie.
