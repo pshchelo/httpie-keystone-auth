@@ -101,6 +101,8 @@ even if it is already set in the ``clouds.yaml`` file.
 
 TODO
 ====
+- better API version discovery, do the most expected thing by default
+- easier API microversion specification
 - for password-like auth type, check that the password is provided in the
   ``clouds.yaml`` and prompt for password if it is not provided as "password"
   to HTTPie.
