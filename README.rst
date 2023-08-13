@@ -76,33 +76,11 @@ Under the hood, the plugin will check if there's any service in the OpenStack
 service catalog of your cloud that has the service type as specified in the
 first part (netloc) of your URL, and replace this first path with endpoint
 URL for this service as defined in the catalog for the region and endpoint type
-(interface) as set in your ``clouds.yaml``.
-
-Note on API versions
-~~~~~~~~~~~~~~~~~~~~
-Services in the OpenStack catalog can be versioned and unversioned.
-In the case of an unversioned endpoint, you will have to provide the
-version in your URL explicitly, for example:
-
-- Image service has catalog entry as "https://glance.mycloud.com"
-  To list images using v2 images API, you will have to call
-  ``image/v2/images`` URL with HTTPie.
-- Compute service usually has catalog entry that is both versioned
-  and also contains the OpenStack project UUID the request is scoped to,
-  like "https://nova.mycloud.com/v2.1/1234567890absdef1234567890absdef".
-  In this case you should simply call HTTPie with e.g. ``compute/servers``
-  URL to list servers.
+(interface) as set in your ``clouds.yaml``. It will use API version as defined
+in the ``clouds.yaml`` file and ``openstacksdk`` defaults.
 
 Limitations
 ===========
 If you are using cloud that needs custom CA bundle file to verify the TLS
 connection, you will still have to pass it explicitly to HTTPie
 even if it is already set in the ``clouds.yaml`` file.
-
-TODO
-====
-- better API version discovery, do the most expected thing by default
-- easier API microversion specification
-- for password-like auth type, check that the password is provided in the
-  ``clouds.yaml`` and prompt for password if it is not provided as "password"
-  to HTTPie.
