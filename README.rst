@@ -65,7 +65,7 @@ to use as 'username' to HTTPie:
 Using service type instead of full service URL
 ----------------------------------------------
 
-This plugin can also simplify working with OpenStack APIs by allowing you
+This plugin also simplifies working with OpenStack APIs by allowing you
 to specify only the *service type* instead of full URL, e.g
 
 .. code-block:: bash
@@ -79,15 +79,36 @@ URL for this service as defined in the catalog for the region and endpoint type
 (interface) as set in your ``clouds.yaml``. It will use API version as defined
 in the ``clouds.yaml`` file and ``openstacksdk`` defaults.
 
-Instead of service type that is actually registered in the service catalog
-of the cloud, you can also use any of:
+Additionally, instead of service type that is actually registered
+in the service catalog of the cloud, you can also use any of:
 
 - official service type (like ``block-storage``)
 - official service type alias (like ``volumev3``)
 - OpenStack community project name (like ``cinder``)
-- service name as registered in the catalog
+- service name as registered in the catalog (can be whatever cloud operator
+  decided to name it)
 
-If a single endpoint matching those criteria is found, it will be used.
+If a single endpoint matching such criteria is found, it will be used.
+
+OpenStack API microversions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Several OpenStack services use API microversions to alter the API behavior.
+The actual header is pretty long and cumbersome to type, and it can vary
+for some older versions of some services.
+
+Instead, you can specify a simple header ``v``, and appropriate microversion
+header will be included, together with legacy ones if required, e.g.
+
+.. code-block:: bash
+
+   https -A keystone compute/servers v:2.59 -v
+   GET /v2.1/servers HTTP/1.1
+   ...
+   OpenStack-API-Version: compute 2.59 # modern API microversion header
+   X-OpenStack-Nova-API-Version: 2.59 # legacy API microversion header
+   ...
+
+Note that this only works when using a service type etc instead of full URL.
 
 Limitations
 ===========
