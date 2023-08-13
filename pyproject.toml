@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dynamic = ["version"]
+name = "httpie-keystone-auth"
+description= "OpenStack Keystone auth plugin for HTTPie"
+readme = "README.rst"
+authors = [
+    {name = "Pavlo Shchelokovskyy", email = "shchelokovskyy@gmail.com"},
+]
+license = {text = "MIT"}
+requires-python = ">=3.7"
+dependencies = [
+    "httpie>=3.0.0",
+    "openstacksdk>=0.59.0",
+    "os_service_types>=1.7.0",
+]
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Environment :: Plugins",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Utilities"
+]
+
+[project.entry-points."httpie.plugins.auth.v1"]
+httpie_keystone_auth = "httpie_keystone_auth:KeystoneAuthPlugin"
+
+[tool.setuptools_scm]
