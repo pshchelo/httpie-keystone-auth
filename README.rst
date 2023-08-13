@@ -74,10 +74,20 @@ to specify only the *service type* instead of full URL, e.g
 
 Under the hood, the plugin will check if there's any service in the OpenStack
 service catalog of your cloud that has the service type as specified in the
-first part (netloc) of your URL, and replace this first path with endpoint
+first part (netloc) of your URL, and replace this with the endpoint
 URL for this service as defined in the catalog for the region and endpoint type
 (interface) as set in your ``clouds.yaml``. It will use API version as defined
 in the ``clouds.yaml`` file and ``openstacksdk`` defaults.
+
+Instead of service type that is actually registered in the service catalog
+of the cloud, you can also use any of:
+
+- official service type (like ``block-storage``)
+- official service type alias (like ``volumev3``)
+- OpenStack community project name (like ``cinder``)
+- service name as registered in the catalog
+
+If a single endpoint matching those criteria is found, it will be used.
 
 Limitations
 ===========

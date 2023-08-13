@@ -25,6 +25,7 @@ setup(
     install_requires=[
         'httpie>=2.0.0',
         'openstacksdk>=0.59.0'
+        'os_service_types>=1.7.0',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
